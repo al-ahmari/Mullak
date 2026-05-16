@@ -2,7 +2,7 @@ services:
   - type: web
     name: mullak-validation-site
     runtime: node
-    plan: starter
+    plan: free
     buildCommand: npm install
     startCommand: npm start
     autoDeploy: true
