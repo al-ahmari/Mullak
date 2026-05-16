@@ -1,0 +1,18 @@
+{
+  "name": "mullak-validation-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arabic RTL validation landing page with secure lead capture",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "export:csv": "node export-leads.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "googleapis": "^148.0.0",
+    "helmet": "^8.1.0",
+    "zod": "^3.24.4"
+  }
+}

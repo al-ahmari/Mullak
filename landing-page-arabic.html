@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مُلّاك | إدارة وحداتك الإيجارية بسهولة</title>
+  <meta name="description" content="مُلّاك يساعد ملاك العقارات في السعودية على تنظيم الصيانة والعقود وحالة الوحدات في مكان واحد.">
+  <style>
+    :root {
+      --bg: #f6efe2;
+      --bg-strong: #eadcc5;
+      --surface: rgba(255, 252, 246, 0.86);
+      --surface-strong: #fff9f0;
+      --text: #1f2a22;
+      --muted: #5b665d;
+      --line: rgba(31, 42, 34, 0.12);
+      --primary: #0f766e;
+      --primary-dark: #0b5b55;
+      --accent: #c2410c;
+      --success: #166534;
+      --shadow: 0 20px 60px rgba(69, 51, 25, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --container: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Geeza Pro", "Al Bayan", "Noto Sans Arabic", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(194, 65, 12, 0.18), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(15, 118, 110, 0.2), transparent 24%),
+        linear-gradient(180deg, var(--bg) 0%, #f8f4ed 52%, #f3ead9 100%);
+      color: var(--text);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(31, 42, 34, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 42, 34, 0.025) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell {
+      width: min(calc(100% - 32px), var(--container));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 36px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary) 0%, #14b8a6 100%);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar-link {
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.55);
+      font-weight: 600;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .section-card,
+    .form-card,
+    .mini-card {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      border-radius: var(--radius-xl);
+      padding: 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.11);
+      color: var(--primary-dark);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin: 18px 0 16px;
+      font-size: clamp(2.2rem, 6vw, 4.3rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 24px;
+      font-size: 1.12rem;
+      line-height: 1.9;
+      color: var(--muted);
+      max-width: 52ch;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .button,
+    button {
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .button-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 0 24px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, #14b8a6 100%);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 18px 40px rgba(15, 118, 110, 0.28);
+    }
+
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 24px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--text);
+      border: 1px solid var(--line);
+      font-weight: 700;
+    }
+
+    .button:hover,
+    button:hover,
+    .topbar-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini-card {
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .mini-card span {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      inset: auto -30px -30px auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(194, 65, 12, 0.22), transparent 70%);
+      z-index: -1;
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-heading h2,
+    .section-card h2,
+    .form-card h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 86px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(194, 65, 12, 0.12);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .pain-list,
+    .feature-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pain-item,
+    .feature-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(31, 42, 34, 0.08);
+    }
+
+    .pain-icon,
+    .feature-index {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+
+    .pain-icon {
+      background: rgba(194, 65, 12, 0.12);
+      color: var(--accent);
+    }
+
+    .feature-index {
+      background: rgba(15, 118, 110, 0.11);
+      color: var(--primary-dark);
+    }
+
+    .pain-item p,
+    .feature-item p {
+      margin: 0;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .sections {
+      display: grid;
+      gap: 24px;
+      padding: 0 0 42px;
+    }
+
+    .section-card,
+    .form-card {
+      border-radius: var(--radius-xl);
+      padding: 30px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .section-header p,
+    .form-intro,
+    .footer-note {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .feature-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .audience-pill {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(31, 42, 34, 0.08);
+      line-height: 1.8;
+      font-weight: 600;
+    }
+
+    .form-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .form-card {
+      background: linear-gradient(180deg, rgba(255, 249, 240, 0.96), rgba(255, 255, 255, 0.82));
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(31, 42, 34, 0.14);
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    textarea {
+      min-height: 132px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(15, 118, 110, 0.55);
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+      background: #fff;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .button-block {
+      width: 100%;
+    }
+
+    .helper-note {
+      margin-top: 14px;
+      font-size: 0.93rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .success-box {
+      display: none;
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(22, 101, 52, 0.1);
+      color: var(--success);
+      font-weight: 600;
+      line-height: 1.8;
+    }
+
+    .success-box.is-visible {
+      display: block;
+    }
+
+    .callout {
+      padding: 22px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(15, 118, 110, 0.1), rgba(20, 184, 166, 0.18));
+      border: 1px solid rgba(15, 118, 110, 0.1);
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      padding: 0 0 40px;
+    }
+
+    .footer-card {
+      padding: 22px 24px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.52);
+      border: 1px solid rgba(31, 42, 34, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: rise 0.7s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.08s; }
+    .delay-2 { animation-delay: 0.16s; }
+    .delay-3 { animation-delay: 0.24s; }
+    .delay-4 { animation-delay: 0.32s; }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .form-layout,
+      .feature-list,
+      .audience-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-facts,
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .topbar-link {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(calc(100% - 20px), var(--container));
+      }
+
+      .hero {
+        padding-top: 20px;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .section-card,
+      .form-card {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      h1 {
+        font-size: 2.1rem;
+      }
+
+      .cta-row,
+      .form-actions {
+        flex-direction: column;
+      }
+
+      .button-primary,
+      .button-secondary,
+      .button-block {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="shell">
+        <div class="topbar reveal">
+          <div class="brand">
+            <span class="brand-badge">م</span>
+            <span>مُلّاك</span>
+          </div>
+          <a class="topbar-link" href="#lead-form">سجّل اهتمامك الآن</a>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy reveal delay-1">
+            <span class="eyebrow">مخصص لملاك العقارات في السعودية</span>
+            <h1>كل وحداتك الإيجارية في مكان واحد.</h1>
+            <p class="hero-subtitle">بدون واتساب. بدون ورق. بدون فوضى. مُلّاك يساعدك على متابعة الصيانة والعقود وحالة الوحدات وسجل المستأجرين من لوحة واضحة وسهلة.</p>
+
+            <div class="cta-row">
+              <a class="button button-primary" href="#lead-form">ابدأ التسجيل</a>
+              <a class="button button-secondary" href="#features">شاهد المزايا</a>
+            </div>
+
+            <div class="hero-facts">
+              <div class="mini-card">
+                <strong>90 / 60 / 30</strong>
+                <span>تنبيهات قبل انتهاء العقد حتى لا يفوتك التجديد.</span>
+              </div>
+              <div class="mini-card">
+                <strong>سجل واحد</strong>
+                <span>كل صور الوحدة وطلبات الصيانة وتاريخ المستأجر محفوظة معًا.</span>
+              </div>
+              <div class="mini-card">
+                <strong>وحدات متعددة</strong>
+                <span>مصمم لمن يملك 3 وحدات إيجارية أو أكثر ويديرها بنفسه.</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-panel reveal delay-2">
+            <div class="panel-heading">
+              <h2>المشاكل التي نحلها</h2>
+              <span class="badge">قبل الإطلاق</span>
+            </div>
+            <div class="pain-list">
+              <div class="pain-item">
+                <div class="pain-icon">1</div>
+                <p>طلبات الصيانة تضيع بين رسائل الواتساب ولا تعرف ما الذي تم ومتى.</p>
+              </div>
+              <div class="pain-item">
+                <div class="pain-icon">2</div>
+                <p>مراجعة الدفعات والعقود تتم يدويًا وتستهلك وقتًا في كل شهر.</p>
+              </div>
+              <div class="pain-item">
+                <div class="pain-icon">3</div>
+                <p>لا يوجد توثيق واضح لحالة الوحدة قبل وبعد كل مستأجر.</p>
+              </div>
+              <div class="pain-item">
+                <div class="pain-icon">4</div>
+                <p>انتهاء العقود يفاجئك لأن التنبيه ليس في مكان واحد وواضح.</p>
+              </div>
+              <div class="pain-item">
+                <div class="pain-icon">5</div>
+                <p>المعلومات موزعة بين الذاكرة والدفاتر وملفات Excel متفرقة.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <main class="shell sections">
+      <section class="section-card reveal delay-1" id="features">
+        <div class="section-header">
+          <div>
+            <h2>ماذا يقدم مُلّاك؟</h2>
+            <p>خمس أدوات في مكان واحد بدل التشتت بين الرسائل والملفات.</p>
+          </div>
+        </div>
+
+        <div class="feature-list">
+          <article class="feature-item">
+            <div class="feature-index">1</div>
+            <p>لوحة تحكم موحدة تعرض حالة كل وحدة: إيجار مستحق، صيانة معلقة، وعقد قارب على الانتهاء.</p>
+          </article>
+          <article class="feature-item">
+            <div class="feature-index">2</div>
+            <p>توثيق حالة الوحدة بالصور عند الدخول والخروج حتى لا تبقى أي خلافات بدون دليل.</p>
+          </article>
+          <article class="feature-item">
+            <div class="feature-index">3</div>
+            <p>تتبع كامل لطلبات الصيانة من لحظة الاستلام حتى الإغلاق مع تاريخ واضح لكل إجراء.</p>
+          </article>
+          <article class="feature-item">
+            <div class="feature-index">4</div>
+            <p>تنبيهات تجديد العقود قبل 90 يوم و60 يوم و30 يوم حتى تبقى متقدمًا بخطوة.</p>
+          </article>
+          <article class="feature-item">
+            <div class="feature-index">5</div>
+            <p>سجل مستأجر يجمع سلوك الدفع والصيانة وحالة التسليم لتتخذ قرارات أدق لاحقًا.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-card reveal delay-2">
+        <div class="section-header">
+          <div>
+            <h2>لمن هذا المنتج؟</h2>
+            <p>مُلّاك مصمم للفئة التي تدير عقاراتها بنفسها وتحتاج نظامًا واضحًا.</p>
+          </div>
+        </div>
+
+        <div class="audience-grid">
+          <div class="audience-pill">تملك 3 وحدات إيجارية أو أكثر.</div>
+          <div class="audience-pill">تدير العقارات بنفسك بدون شركة إدارة.</div>
+          <div class="audience-pill">تريد نظامًا يختصر الفوضى ويعطيك صورة واضحة دائمًا.</div>
+        </div>
+      </section>
+
+      <section class="form-layout reveal delay-3" id="lead-form">
+        <div class="form-card">
+          <h2>سجّل اهتمامك الآن</h2>
+          <p class="form-intro">هذه صفحة حقيقية مرتبطة بخادم يحفظ الطلبات على السيرفر بدل التخزين المحلي في المتصفح. يمكنك لاحقًا تصدير البيانات إلى ملف CSV وفتحه في Excel أو Google Sheets.</p>
+
+          <form id="interest-form" novalidate>
+            <div class="field-grid">
+              <div class="field">
+                <label for="name">الاسم</label>
+                <input id="name" name="name" type="text" placeholder="اكتب اسمك الكامل" required>
+              </div>
+
+              <div class="field">
+                <label for="phone">رقم الجوال</label>
+                <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="05xxxxxxxx" required>
+              </div>
+
+              <div class="field">
+                <label for="units">عدد الوحدات</label>
+                <select id="units" name="units" required>
+                  <option value="" selected disabled>اختر العدد</option>
+                  <option>3 - 5 وحدات</option>
+                  <option>6 - 10 وحدات</option>
+                  <option>11 - 20 وحدة</option>
+                  <option>أكثر من 20 وحدة</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="city">المدينة</label>
+                <input id="city" name="city" type="text" placeholder="مثال: الرياض">
+              </div>
+
+              <div class="field field-full">
+                <label for="notes">ما أكبر مشكلة تواجهك اليوم؟</label>
+                <textarea id="notes" name="notes" placeholder="مثال: متابعة الصيانة بين عدة وحدات أو نسيان مواعيد انتهاء العقود"></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="button button-primary button-block" type="submit">سجّل اهتمامي</button>
+              <button class="button button-secondary button-block" type="button" id="prefill-button">تعبئة بيانات تجريبية</button>
+            </div>
+
+            <p class="helper-note">بعد الإرسال ستنتقل البيانات إلى الخادم وتُحفظ في ملف خاص على الجهاز. ويمكنك لاحقًا تشغيل أمر تصدير لإنتاج ملف CSV جاهز للجدول.</p>
+            <div class="success-box" id="success-box"></div>
+          </form>
+        </div>
+
+        <aside class="section-card">
+          <div class="callout">
+            <strong>نبني هذا المنتج بناءً على احتياجات ملاك عقاريين سعوديين حقيقيين.</strong>
+            <p class="footer-note">رأيك يشكّل المنتج قبل إطلاقه. الهدف الآن ليس البيع، بل التأكد من أن المشكلة حقيقية وأن الرسالة واضحة.</p>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="shell reveal delay-4">
+      <div class="footer-card">
+        <p class="footer-note">هذه النسخة تعمل بدون Carrd. إذا شغّلت الخادم فسيتم حفظ الطلبات فعليًا على الجهاز، ثم يمكنك تصديرها إلى CSV لاستخدامها في أي جدول بيانات.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/landing-page-arabic.js" defer></script>
+</body>
+</html>
